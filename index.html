@@ -32,7 +32,63 @@ The default files are not supposed to be edited. Not that you can't.
     <footer>by Philipp Martis and Andreas Nordal</footer>
 </section>
 
+<section>
+	<p>The driver's license of Bash scripting:</p>
+	<h1><b>"</b>Quoting<b>"</b></h1>
+</section>
 
+<section>
+	<p>Must be quoted [1/2]:</p>
+	<h1><b>"</b>$var<b>"</b></h1>
+	<footer>Variable expansion</footer>
+</section>
+
+<section>
+	<p>Must be quoted [2/2]:</p>
+	<h1><b>"</b>$(cmd)<b>"</b></h1>
+	<h1 class="next"><b>"</b>`cmd`<b>"</b></h1>
+	<footer>Command substitution</footer>
+</section>
+
+<section>
+	<h1>Why quote?</h1>
+	<pre>$var</pre>
+	<pre>$(cmd)</pre>
+	<pre>`cmd`</pre>
+</section>
+
+<section>
+	<h1>Why quote?</h1>
+	<p class="evil">🔥 Evil implicit behavior 🔥</p>
+	<ol>
+	<li>Word splitting</li>
+	<li>Glob expansion</li>
+	</ol>
+</section>
+
+<section>
+	<h2>Warm-up</h2>
+	<p>Word splitting</p>
+	<code>file="La Bouche/Be my lover.mp3"
+rm $file</code>
+	<code class="next">→ <span class="bg">rm</span> <span class="bg">La</span> <span class="bg">Bouche/Be</span> <span class="bg">my</span> <span class="bg">lover.mp3</span></code>
+</section>
+
+<section>
+	<h2>Warm-up</h2>
+	<p>Glob expansion</p>
+	<code>dir="Sagittarius_A*"
+rm -rf $dir</code>
+	<code class="next">→ <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">Sagittarius_AB</span> <span class="bg">Sagittarius_And_Other_Dwarf_Galaxies</span> <span class="bg">Sagittarius_A*</span></code>
+</section>
+
+<section>
+	<h2>Quiz</h2>
+	<code>file="; rm -rf /"
+cat $file</code>
+	<code class="next">→ <span class="bg">cat</span> <span class="bg">;</span> <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">/</span></code>
+	<p class="next">Word splitting &amp; glob expansion (no injection).</p>
+</section>
 
 
 

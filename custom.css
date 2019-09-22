@@ -2,7 +2,6 @@
 html, .view body { background-color: black; counter-reset: slideidx; }
 body, .view section {
   background-color: white; border-radius: 12px;
-  font-family: 'Oswald', arial, serif;
 }
 
 section, .view head > title {
@@ -37,24 +36,33 @@ section > h3 {
   border-bottom: 0.1px solid;
 }
 
-pre {
-  overflow: hidden;
-  font-size: 1.25rem;
-  margin: 0 75px 0 75px;
+pre,code {
+  margin: 75px 75px 0 75px;
   padding: 10px;
-  border: 1px solid;
-  font-weight: bold;
   background-color: #F7F7F7;
-  width:80%
+  width:80%;
+  display: block;
+  white-space: pre-wrap;
+  font-size: 1.7rem;
+}
+
+b {
+  color: red;
+}
+
+.evil {
+  color: orange;
+  font-weight: bold;
+  text-align: center;
+}
+
+.bg {
+  background-color: #CCF;
 }
 
 ul, ol {
-    margin: 40px 100px 0 100px;
-}
-
-li > ul, ol {
-    margin: 0 0 15px 50px;
-    list-style-image: none; /* in case parent list has some */
+  margin: 75px 75px 0 75px;
+  text-align: center;
 }
 
 mark.next:not([active]) {
