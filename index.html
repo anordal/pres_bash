@@ -18,15 +18,7 @@ The default files are not supposed to be edited. Not that you can't.
 
 <title>Bash best and worst practices</title>
 
-<!-- Optional: on every page: header and footer -->
-<!--<header>Hi, I'm a header</header>
-<footer>by John Doe</footer>-->
-
-<!-- Your Slides -->
-<!-- One section is one slide -->
-
 <section>
-    <!-- This is the first slide -->
     <h1>Bash</h1>
     <h2>best and worst practices</h2>
     <footer>by Philipp Martis and Andreas Nordal</footer>
@@ -90,6 +82,29 @@ cat $file</code>
 	<p class="next">Just word splitting &amp; filename expansion. Bash is not a macro language.</p>
 </section>
 
+
+<section>
+	<h1>Small pitfalls</h1>
+</section>
+
+<section>
+	<p>Positional args</p>
+	<code>#!/bin/bash
+echo "$1"</code>
+	<code class="next">#!/bin/bash
+echo "$10"</code>
+	<code class="next">#!/bin/bash
+echo "${10}"</code>
+</section>
+
+<section>
+	<p>"$<b>{</b>10<b>}</b>" … But why?</p>
+	<p class="next">There are 2 types of variable names:</p>
+	<ol>
+	<li class="next">Identifiers: <code>[_a-zA-Z][_a-zA-Z0-9]*</code></li>
+	<li class="next">Single characters <code>.</code></li>
+	</ol>
+</section>
 
 
 
