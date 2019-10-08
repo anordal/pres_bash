@@ -62,7 +62,7 @@ The default files are not supposed to be edited. Not that you can't.
 	<p class="evil">🔥 Evil implicit behavior 🔥</p>
 	<ol>
 	<li>Word splitting</li>
-	<li>Glob expansion</li>
+	<li>Filename expansion</li>
 	</ol>
 </section>
 
@@ -76,7 +76,7 @@ rm $file</code>
 
 <section>
 	<h2>Warm-up</h2>
-	<p>Glob expansion</p>
+	<p>Filename expansion</p>
 	<code>dir="Sagittarius_A*"
 rm -rf $dir</code>
 	<code class="next">→ <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">Sagittarius_AB</span> <span class="bg">Sagittarius_And_Other_Dwarf_Galaxies</span> <span class="bg">Sagittarius_A*</span></code>
@@ -87,7 +87,7 @@ rm -rf $dir</code>
 	<code>file="; rm -rf /"
 cat $file</code>
 	<code class="next">→ <span class="bg">cat</span> <span class="bg">;</span> <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">/</span></code>
-	<p class="next">Word splitting &amp; glob expansion (no injection).</p>
+	<p class="next">Just word splitting &amp; filename expansion. Bash is not a macro language.</p>
 </section>
 
 
