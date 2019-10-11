@@ -36,6 +36,7 @@ section > h3 {
   border-bottom: 0.1px solid;
 }
 
+
 pre,code {
   margin: 75px 75px 0 75px;
   padding: 10px;
@@ -45,6 +46,11 @@ pre,code {
   white-space: pre-wrap;
   font-size: 1.7rem;
 }
+
+inline-code {
+  font-size: 1.7rem;
+}
+
 
 b {
   color: red;
@@ -61,8 +67,7 @@ b {
 }
 
 ul, ol {
-  margin: 75px 75px 0 75px;
-  text-align: center;
+  margin: 0px 25px 0 55px;
 }
 
 mark.next:not([active]) {
@@ -71,7 +76,7 @@ mark.next:not([active]) {
 }
 
 p {
-  margin: 75px 75px 0 75px;
+  margin: 25px 75px 0 75px;
   font-size: 3rem;
 }
 
