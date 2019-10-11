@@ -109,6 +109,50 @@ echo "${10}"</code>
 
 
 
+<section>
+	<h2>set -e</h2>
+	<p>Some object fiercly to it</p>
+	<br>
+	<ul>
+		<li>They have <a href=https://wiki.bash-hackers.org/scripting/obsolete>good</a>
+	                      <a href=http://mywiki.wooledge.org/BashFAQ/105>points</a>
+		<li>We still recommend <inline-code>set -e</inline-code> for most cases
+	        <ul>
+			<li class="next">False positives usually not a problem (these are the cases)
+			<li class="next">Less code: more readable and less error-prone
+			<li class="next">Programming mistakes often caught
+	                </ul>
+	</ul>
+</section>
+
+<section>
+	<h2>set -e</h2>
+	<p>One example of the tribulations with <inline-code>set -e</inline-code></p>
+	<code>f() {
+    ( set -e; false; echo "D'oh!" )
+}
+f && false</code>
+</section>
+
+<section>
+	<h2>set -e</h2>
+	<br>
+	<br>
+	<p>
+			The <inline-code>&&</inline-code> thwarts <inline-code>set -e</inline-code>,
+			even inside a subshell inside a function!
+	</p>
+	<div class="next">
+	<p>No easy solution:</p>
+	<ul>
+		<li>Don't rely on <inline-code>set -e</inline-code> (in functions)
+		<li>Don't use <inline-code>if</inline-code>,
+			<inline-code>&&</inline-code> etc. with functions
+	</ul>
+	</div>
+</section>
+
+
 
 
 
@@ -132,6 +176,7 @@ echo "${10}"</code>
           <li class="next"> Item 3.1
           <li class="next"> Item 3.2
         </ul>
+      <li class="next">Item 4
     </ul>
     <div role="note">Some notes. They are only visible using onstage shell.</div>
 </section>
