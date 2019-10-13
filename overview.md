@@ -8,11 +8,12 @@
 
 - Drivers' license to Bash
         - Quotes
-        - Arrays
+        - Tip: Arrays
 
 - Foster the best (practices)
         - Small pitfalls:
                 - $10
+                - set -u in bash<4.4
                 - backslashes inside ` `
                 - overwrite global variables -> use declare or local
                 - echo or not using -- -> use printf or --
