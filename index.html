@@ -175,19 +175,14 @@ f && false</code>
 
 <section>
 	<h2>set -e</h2>
-	<br>
-	<br>
-	<p>
-			The <inline-code>&&</inline-code> thwarts <inline-code>set -e</inline-code>,
-			even inside a subshell inside a function!
-	</p>
+	<small>
+		The <inline-code>&&</inline-code> thwarts <inline-code>set -e</inline-code>,
+		even inside a subshell inside a function!
+	</small>
 	<div class="next">
-	<p>No easy solution:</p>
-	<ul>
-		<li>Don't rely on <inline-code>set -e</inline-code> (in functions)
-		<li>Don't use <inline-code>if</inline-code>,
-			<inline-code>&&</inline-code> etc. with functions
-	</ul>
+	<br>
+	<p>Solution:</p>
+	<code>f & wait $! && false</code>
 	</div>
 </section>
 
