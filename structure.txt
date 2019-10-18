@@ -19,16 +19,19 @@
 		- Pipes lead to subshells -> in the worst case use `< <(pipe) read -rd '' s`
 	- Good practices (here is where we can cut a bit):
 		- (short) functions, sensible variable names, consistency
-		- use bash options like nullglob
-		- { } for grouping
-		- ( ) for throwaway-environments (set, shopt, env, variables)
-		- (( ))
-		- [ -z ... ] -> [ ... != "" ]
-		- <( )
-		- << and <<<
-		- [[ ]]
-		- ${var//str/repl} etc.
-		- useful program options, like grep -q, mkdir -p and rm -f
+		- "Use what Bash provides!"
+			- shopt, set
+			- { } for grouping
+			- ( ) for throwaway-environments (set, shopt, env, variables)
+			- (( ))
+			- <( )
+			- << and <<<
+			- [[ ]]
+			- ${var//str/repl} etc.
+		- "Use it properly!"
+			- "if" not necessarily needs [ ]
+			- [ -z ... ] -> [ ... != "" ]
+			- useful program options, like grep -q, mkdir -p and rm -f
 		- trap just on EXIT
 	- Use set -e (-uo pipefail) (+ counterexample)
 
