@@ -39,7 +39,7 @@ section > h3 {
 
 
 pre,code {
-  margin: 75px 75px 0 75px;
+  margin: 25px 75px 0 75px;
   padding: 10px;
   background-color: #F7F7F7;
   width:80%;
@@ -81,9 +81,16 @@ p {
   font-size: 3rem;
 }
 
+medium {
+  /* Use padding instead of margin to prevent collapsing -- for smaller text we want some more space: */
+  margin: 25px 75px 0 75px;
+  display: block;
+  font-size: 2rem;
+}
+
 small {
-  /* Use padding instead of margin to prevent collapsing -- for small text we want some more space: */
-  padding: 25px 30px 0 30px;
+  /* Use padding instead of margin to prevent collapsing -- for smaller text we want some more space: */
+  padding: 25px 75px 0 75px;
   display: block;
 }
 
