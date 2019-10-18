@@ -147,6 +147,106 @@ echo "<b>$toffi</b>""fee_fee-fee"</code>
 
 
 
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Input and output</h3>
+	<ul>
+		<li class="next"><inline-code>&></inline-code>: Redirect stdout and stderr at once
+	</ul>
+	<br>
+	<ul>
+		<li class="next"><inline-code><<-'EOF'</inline-code>: Redirect stdin to yield
+			the upcoming lines, until <inline-code>EOF</inline-code>
+		<ul>
+			<li class="next">... ignoring leading tabs (<inline-code>-</inline-code>)
+			<li class="next">... literally (<inline-code>''</inline-code>)
+		</ul>
+	</ul>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Input and output</h3>
+	<ul>
+		<li class="next"><inline-code><<< asdf</inline-code>: Redirect stdin to yield
+			<inline-code>asdf</inline-code>
+	</ul>
+	<br>
+	<ul>
+		<li class="next"><inline-code><(git show)</inline-code>: Usable like a file
+			containing the output of <inline-code>git show</inline-code>
+	</ul>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Parameter expansion</h3>
+	<ul>
+		<li><inline-code>${s%%/*}</inline-code>: <inline-code>s</inline-code>,
+			without trailing <inline-code>/*</inline-code>
+		<li><inline-code>${s#*/}</inline-code>: <inline-code>s</inline-code>,
+			without shortest leading <inline-code>*/</inline-code>
+		<li><inline-code>${s/a/b}</inline-code>: <inline-code>s</inline-code>,
+			replacing first <inline-code>a</inline-code> with <inline-code>b</inline-code>
+		<li><inline-code>${s//a/b}</inline-code>: <inline-code>s</inline-code>,
+			replacing every <inline-code>a</inline-code> with <inline-code>b</inline-code>
+		<li><inline-code>${!s}</inline-code>: Content of variable named <inline-code>$s</inline-code>
+	</ul>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3><inline-code>shopt -s</inline-code></h3>
+	<ul>
+		<li><inline-code>dotglob</inline-code>: Include hidden files when globbing
+		<li><inline-code>nullglob</inline-code>: Expand unsuccessful globs to empty string
+		<li><inline-code>nocasematch</inline-code>: Ignore case
+			(<b>not in</b> <inline-code>test</inline-code>/<inline-code>[</inline-code>!)
+	</ul>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3><inline-code>set</inline-code></h3>
+	<ul>
+		<li><inline-code>-x</inline-code>: Echo executed commands
+		<li><inline-code>-e</inline-code>: Exit on errors (covered later)
+		<li><inline-code>-u</inline-code>: Treat unset variables as errors (and exit)
+		<li><inline-code>-o pipefail</inline-code>: Pipe fails if <b>any</b> of its commands fail
+	</ul>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Grouping: <inline-code>{ }</inline-code></h3>
+	<code>cleanup || { essential_cleanup; exit 1; }</code>
+	<code class="next">{ echo "[configuration]"; make_config; } > file.conf</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Subshells: <inline-code>( )</inline-code></h3>
+	<medium>Changes don't effect parent shell</medium>
+	<code class="next">( set -x; cmd lots of parameters )</code>
+	<code class="next">if ( shopt -s nocasematch; [[ "$s" == "yes" ]] )</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Extended conditionals: <inline-code>[[ ]]</inline-code></h3>
+	<code class="next">shopt -s ignorecase; [[ "a" == "A" ]]</code>
+	<code class="next">[[ "a" > "b" && (-f "file" || ! -f "file") ]]</code>
+	<code class="next">[[ "a" =~ ^a(bc)*$ ]]</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Arithmetic conditionals: <inline-code>(( ))</inline-code></h3>
+	<code class="next">(( $? == expected_code ))</code>
+	<code class="next">(( 0 < 1 ** 0 && ! (1 << 1 & 2) ))</code>
+	<code class="next">(( i += 2 ))</code>
+	<code class="next">for (( i = 0; i < n; ++i ))</code>
+</section>
 
 <section>
 	<h2>set -e</h2>
@@ -160,7 +260,7 @@ echo "<b>$toffi</b>""fee_fee-fee"</code>
 			<li class="next">False positives usually not a problem (these are the cases)
 			<li class="next">Less code: more readable and less error-prone
 			<li class="next">Programming mistakes often caught
-	                </ul>
+		</ul>
 	</ul>
 </section>
 
@@ -180,9 +280,11 @@ f && false</code>
 		even inside a subshell inside a function!
 	</small>
 	<div class="next">
-	<br>
-	<p>Solution:</p>
-	<code>f & wait $! && false</code>
+		<br>
+		<p>Solution:</p>
+		<code>
+			f & wait $! && false
+		</code>
 	</div>
 </section>
 
