@@ -25,6 +25,119 @@ The default files are not supposed to be edited. Not that you can't.
 </section>
 
 <section>
+	<h1>Why care</h1>
+	<p class="next">Common myths:</p>
+	<ul>
+	<li><i>LOL, shellscripts are old-school</i></li>
+	<li><i>I'm not writing them</i></li>
+	</ul>
+</section>
+
+<section>
+	<ul>
+	<li><i>LOL, shellscripts are old-school</i></li>
+	<li><i>I'm not writing them</i></li>
+	</ul>
+	<hr/>
+	<ol>
+	<li class="next">Define shellscript programming</li>
+	<li class="next">Where you find them</li>
+	<li class="next">How <i>not</i> to write one</li>
+	</ol>
+</section>
+
+<section>
+	<header><center>What signifies a shellscript language?</center></header>
+	<code>&gt; 1+1
+1+1: Command not found.
+&gt; calc '1+1'
+2</code>
+	<p>Programs as building blocks<p>
+</section>
+
+<section>
+	<header><center>What defines a shellscript language?</center></header>
+	<code>&gt; 1+1
+1+1: Command not found.
+&gt; calc '1+1'
+2</code>
+	<p>A language for running other programs.<p>
+</section>
+
+<section>
+	<header><center>Where shellscripts are found</center></header>
+	<p>The okay:</p>
+	<ul>
+	<li>Personal automation</li>
+	<li>Your typical test script</li>
+	<li>Build systems</li>
+	<ul>
+	<li>Makefiles</li>
+	<li>Dockerfiles</li>
+	<li>Openembedded</li>
+	</ul>
+	<li>Every script that runs over ssh</li>
+	</ul>
+	<ul>
+</section>
+
+<section>
+	<header><center>Where shellscripts are found</center></header>
+	<p>The bad:</p>
+	<li>Hidden in other programs</li>
+	<ul>
+	<li>C/C++: <tt>system("")</tt></li>
+	<li>Python: <tt>subprocess.call("", shell=True)</tt></li>
+	</ul>
+	<p class="next">The ugly:</p>
+	<li class="next">Generating a shellscript at runtime (often with improper quoting)</li>
+	<ul class="next">
+	<li>C++: <tt>std::string cmd("./script.py ") + filename; system(cmd);</tt></li>
+	<li>Python: <tt>subprocess.call("./script.py " + filename, shell=True)</tt></li>
+	</ul>
+</section>
+
+<section>
+	<header><center>How to not generate shellscripts at runtime</center></header>
+	<p>Two insights:</p>
+	<ul>
+	<li>A command is fundamentally an array (<tt>argv</tt>)</li>
+	<li>The set of environment variables is also an array.</li>
+	</ul>
+	<p class="next">→ The command <i>line</i> is an illusion.</p>
+	<p class="next">→ If you are doing string processing, you are doing it wrong.</p>
+</section>
+
+<section>
+	<header><center>How to not do this?</center></header>
+	<p>Generating a shellscript at runtime (with improper quoting)</p>
+	<code>cmd = "LANG=C.UTF-8 ./script.py " + filename
+subprocess.call(cmd, shell=True)</code>
+	<hr>
+	<p class="next">Not invoking the shell</p>
+	<code class="next">cmd = ["./script.py", filename]
+env = {"LANG": "C.UTF-8"}
+subprocess.call(cmd, env=env)</code>
+</section>
+
+<section>
+	<header><center>How to not do this?</center></header>
+	<code>auto cmd = std::string("LANG=C.UTF-8 ./script.py ") + filename;
+system(cmd);</code>
+	<hr>
+	<code class="next">const char* cmd[] = {
+	"./script.py",
+	filename,
+	nullptr
+};
+const char* env[] = {
+	"LANG=C.UTF-8",
+	nullptr
+};
+posix_spawn(…, cmd[0], …, …, cmd, env)</code>
+</section>
+
+<section>
 	<p>The driver's license of Bash scripting:</p>
 	<h1><b>"</b>Quoting<b>"</b></h1>
 </section>
