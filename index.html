@@ -303,7 +303,7 @@ echo "<b>$toffi</b>""fee_fee-fee"</code>
 			replacing first <inline-code>a</inline-code> with <inline-code>b</inline-code>
 		<li><inline-code>${s//a/b}</inline-code>: <inline-code>s</inline-code>,
 			replacing every <inline-code>a</inline-code> with <inline-code>b</inline-code>
-		<li><inline-code>${!s}</inline-code>: Content of variable named <inline-code>$s</inline-code>
+		<li><inline-code>${!s}</inline-code>: Content of variable named <inline-code>"$s"</inline-code>
 	</ul>
 </section>
 
@@ -347,7 +347,7 @@ echo "<b>$toffi</b>""fee_fee-fee"</code>
 <section>
 	<h2>Use what Bash provides!</h2>
 	<h3>Extended conditionals: <inline-code>[[ ]]</inline-code></h3>
-	<code class="next">shopt -s ignorecase; [[ "a" == "A" ]]</code>
+	<code class="next">shopt -s nocasematch; [[ "a" == "A" ]]</code>
 	<code class="next">[[ "a" > "b" && (-f "file" || ! -f "file") ]]</code>
 	<code class="next">[[ "a" =~ ^a(bc)*$ ]]</code>
 </section>
@@ -368,11 +368,10 @@ echo "<b>$toffi</b>""fee_fee-fee"</code>
 	<ul>
 		<li>They have <a href=https://wiki.bash-hackers.org/scripting/obsolete>good</a>
 	                      <a href=http://mywiki.wooledge.org/BashFAQ/105>points</a>
-		<li>We still recommend <inline-code>set -e</inline-code> for most cases
+		<li>There are also good points for it:
 	        <ul>
-			<li class="next">False positives usually not a problem (these are the cases)
 			<li class="next">Less code: more readable and less error-prone
-			<li class="next">Programming mistakes often caught
+			<li class="next">Catches most (programming) errors
 		</ul>
 	</ul>
 </section>
@@ -395,9 +394,7 @@ f && false</code>
 	<div class="next">
 		<br>
 		<p>Solution:</p>
-		<code>
-			f & wait $! && false
-		</code>
+		<code>f <green>& wait $!</green> && false</code>
 	</div>
 </section>
 

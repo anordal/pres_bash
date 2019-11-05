@@ -57,6 +57,10 @@ b {
   color: red;
 }
 
+green {
+  color: green;
+}
+
 .evil {
   color: orange;
   font-weight: bold;
