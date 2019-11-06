@@ -126,13 +126,13 @@ subprocess.call(cmd, env=env)</code>
 system(cmd);</code>
 	<hr>
 	<code class="next">const char* cmd[] = {
-	"./script.py",
-	filename,
-	nullptr
+    "./script.py",
+    filename,
+    nullptr
 };
 const char* env[] = {
-	"LANG=C.UTF-8",
-	nullptr
+    "LANG=C.UTF-8",
+    nullptr
 };
 posix_spawn(…, cmd[0], …, …, cmd, env)</code>
 </section>
@@ -233,10 +233,10 @@ einstein foot
 	<h2>Quiz</h2>
 	<p>Where does the variable name end?</p>
 	<code>{
-	toffi=cof
-	toffifee=airline
-	toffifee_fee=Bryan
-	toffifee_fee-fee=Air
+    toffi=cof
+    toffifee=airline
+    toffifee_fee=Bryan
+    toffifee_fee-fee=Air
 } 2>/dev/null
 
 echo "$toffifee_fee-fee"
@@ -245,10 +245,10 @@ echo "$toffi""fee_fee-fee"</code>
 
 <section>
 	<code>{
-	<b>toffi</b>=cof
-	toffifee=airline
-	<b>toffifee_fee</b>=Bryan
-	toffifee_fee-fee=Air
+    <b>toffi</b>=cof
+    toffifee=airline
+    <b>toffifee_fee</b>=Bryan
+    toffifee_fee-fee=Air
 } 2>/dev/null
 
 echo "<b>$toffifee_fee</b>-fee"
