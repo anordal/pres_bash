@@ -258,6 +258,142 @@ echo "<b>$toffi</b>""fee_fee-fee"</code>
 → </code>
 </section>
 
+<section>
+	<h2>Escaping and ` `</h2>
+	<br>
+	<br>
+	<p class="next">Use <red>` `</red> only for simple things, if at all!</p>
+</section>
+
+<section>
+	<h2>Quiz</h2>
+	<p>How do you rewrite the following, using only one <inline-code>echo</inline-code>:</p>
+	<code>echo "` echo "$(echo 'h\\i')" `"</code>
+	<code class="next">echo 'h\i'  # or echo "h\\i"</code>
+</section>
+
+<section>
+	<h2>Escaping and ` `</h2>
+	<p>Being syntactically surrounded by <inline-code>` `</inline-code>
+	   is enough to halve the number of <inline-code>\\</inline-code>s.
+	</p>
+	<p class="next"><inline-code>\n</inline-code> stays <inline-code>\n</inline-code>.
+	</p>
+</section>
+
+<section>
+	<h2>Variable shadowing</h2>
+	<p>Consider</p>
+	<code>greet() {
+    name="$1"
+    for s in привет Hello Hei; do
+        echo "$s, $name!"
+    done
+}
+
+read -p "What's your name? " s
+greet "$s"
+echo "I like the name $s!"
+</code>
+</section>
+
+<section>
+	<h2>Variable shadowing</h2>
+	<p>Correct:</p>
+	<code>greet() {
+    <green>declare</green> name="$1" <green>s</green>
+    for s in привет Hello Hei; do
+        echo "$s, $name!"
+    done
+}
+
+read -p "What's your name? " s
+greet "$s"
+echo "I like the name $s!"
+</code>
+</section>
+
+<section>
+	<h2>Variable shadowing</h2>
+	<p>Good: 🙂</p>
+	<code>greet() {
+    declare name="$1" <green>hello</green>
+    for <green>hello</green> in привет Hello Hei; do
+        echo "<green>$hello</green>, $name!"
+    done
+}
+
+<green>declare name</green>
+read -p "What's your name? " <green>name</green>
+greet <green>"$name"</green>
+echo "I like the name <green>$name</green>!"
+</code>
+</section>
+
+<section>
+	<h2>Variable visibility</h2>
+	<p>Consider</p>
+	<code>declare max="" line
+get_values | while read -r line; do
+    declare val="`parse "$line"`"
+    if higher "$val" "$max"; then
+        max="$val"
+    fi
+done
+</code>
+</section>
+
+<section>
+	<h2>Variable visibility</h2>
+	<br>
+	<p><inline-code>max</inline-code> isn't changed, since the whole loop
+           runs in a subshell introduced by <inline-code>|</inline-code>.
+	</p>
+</section>
+
+<section>
+	<h2>Variable visibility</h2>
+	<p>General solution:</p>
+        <code>declare max="" line
+while read -r line; do
+    declare val="`parse "$line"`"
+    if higher "$val" "$max"; then
+        max="$val"
+    fi
+done <green>< <(get_values)</green>
+</code>
+</section>
+
+<section>
+	<h2>Variable visibility</h2>
+	<p>Cleaner:</p>
+        <code>print_max() {
+    declare max="" line
+    while read -r line; do
+        update_max "$line"
+    done
+    echo "$max"
+}
+
+max="` get_values | print_max `"
+</code>
+</section>
+
+<section>
+	<h2>Variable contents</h2>
+	<p>Arbitrary values: 🙂</p>
+        <code>print_max() {
+    declare max="" line
+    while read -r line; do
+        update_max "$line"
+    done
+    <green>printf '%s\n'</green> "$max"
+}
+
+max="` get_values | print_max `"
+</code>
+</section>
+
 
 
 <section>
