@@ -491,10 +491,10 @@ max="` get_values | print_max `"
 <section>
 	<h2>Use what Bash provides!</h2>
 	<h3>Arithmetic conditionals: <inline-code>(( ))</inline-code></h3>
-	<code class="next">(( $? == expected_code ))</code>
-	<code class="next">(( 0 < 1 ** 0 && ! (1 << 1 & 2) ))</code>
-	<code class="next">(( i += 2 ))</code>
+	<code class="next">(( ! updated ))</code>
+	<code class="next">(( (i += 2 ** $?) && (1 << 1 & 2) ))</code>
 	<code class="next">for (( i = 0; i < n; ++i ))</code>
+	<medium class="next">Be aware of recursive and history expansion!</medium>
 </section>
 
 <section>
