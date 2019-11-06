@@ -28,6 +28,7 @@
 			- << and <<<
 			- [[ ]]
 			- ${var//str/repl} etc.
+			- $' '
 		- "Use it properly!"
 			- "if" not necessarily needs [ ]
 			- [ -z ... ] -> [ ... != "" ]
