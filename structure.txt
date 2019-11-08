@@ -10,27 +10,26 @@
 	- Quotes
 	- Arrays
 
-- Foster the best (practices)
-	- Good practices (here is where we can cut a bit):
-		- (short) functions, sensible variable names, consistency
-		- "Use what Bash provides!"
-			- shopt, set
-			- { } for grouping
-			- ( ) for throwaway-environments (set, shopt, env, variables)
-			- (( ))
-			- <( )
-			- << and <<<
-			- [[ ]]
-			- ${var//str/repl} etc.
-			- $' '
-		- "Use it properly!"
-			- "if" not necessarily needs [ ]
-			- [ -z ... ] -> [ ... != "" ]
-			- useful program options, like grep -q, mkdir -p and rm -f
-		- trap just on EXIT
+- Good practices (here is where we can cut a bit):
+	- (short) functions, sensible variable names, consistency
+	- "Use what Bash provides!"
+		- shopt, set
+		- { } for grouping
+		- ( ) for throwaway-environments (set, shopt, env, variables)
+		- (( ))
+		- <( )
+		- << and <<<
+		- [[ ]]
+		- ${var//str/repl} etc.
+		- $' '
+	- "Use it properly!"
+		- "if" not necessarily needs [ ]
+		- [ -z ... ] -> [ ... != "" ]
+		- useful program options, like grep -q, mkdir -p and rm -f
 	- Use set -e (-uo pipefail) (+ counterexample)
+	- trap just on EXIT
 
-- Small pitfalls:
+- Pitfalls:
 	- $10
 	- backslashes inside ` `
 	- overwrite global variables -> use declare or local
