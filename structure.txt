@@ -11,12 +11,6 @@
 	- Arrays
 
 - Foster the best (practices)
-	- Small pitfalls:
-		- $10
-		- backslashes inside ` `
-		- overwrite global variables -> use declare or local
-		- echo or not using -- -> use printf or --
-		- Pipes lead to subshells -> in the worst case use `< <(pipe) read -rd '' s`
 	- Good practices (here is where we can cut a bit):
 		- (short) functions, sensible variable names, consistency
 		- "Use what Bash provides!"
@@ -36,6 +30,12 @@
 		- trap just on EXIT
 	- Use set -e (-uo pipefail) (+ counterexample)
 
+- Small pitfalls:
+	- $10
+	- backslashes inside ` `
+	- overwrite global variables -> use declare or local
+	- echo or not using -- -> use printf or --
+	- Pipes lead to subshells -> in the worst case use `< <(pipe) read -rd '' s`
 
 
 - REMARKS:
