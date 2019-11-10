@@ -183,6 +183,19 @@ cat $file</code>
 
 <section>
 	<h2>Use what Bash provides!</h2>
+	<h3>Arrays</h3>
+	<code>files=(
+    script.py
+    "Aqua - Doctor Jones.mp3"
+    *.h
+)
+for f in "${files[@]}"; do
+    …
+done</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
 	<h3>Input and output</h3>
 	<ul>
 		<li class="next"><inline-code>&></inline-code>: Redirect stdout and stderr at once
@@ -233,7 +246,8 @@ cat $file</code>
 	<h3><inline-code>shopt -s</inline-code></h3>
 	<ul>
 		<li><inline-code>dotglob</inline-code>: Include hidden files when globbing
-		<li><inline-code>nullglob</inline-code>: Expand unsuccessful globs to empty string
+		<li><inline-code>nullglob</inline-code>: Expand unmatching globs to empty array
+		<li><inline-code>globstar</inline-code>: Expand double-stars (<tt>**</tt>) recursively
 		<li><inline-code>nocasematch</inline-code>: Ignore case
 			(<b>not in</b> <inline-code>test</inline-code>/<inline-code>[</inline-code>!)
 	</ul>
@@ -280,6 +294,38 @@ cat $file</code>
 	<code class="next">(( (i += 2 ** $?) && (1 << 1 & 2) ))</code>
 	<code class="next">for (( i = 0; i < n; ++i ))</code>
 	<medium class="next">Be aware of recursive and history expansion!</medium>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Switch</h3>
+	<code>for f in {src,include}/**; do
+    case "$f" in
+        *.h|*.cpp)
+            …
+        ;;
+        *)
+            …
+        ;;
+    esac
+done</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Exit handler</h3>
+	<code>set -e
+tmpdir="$(mktemp -d)"
+cleanup() {
+    rm -rf "$tmpdir"
+}
+trap cleanup EXIT
+
+cd "$tmpdir"
+…
+…
+…
+echo 'Great success!'</code>
 </section>
 
 <section>
