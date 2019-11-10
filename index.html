@@ -29,44 +29,24 @@ The default files are not supposed to be edited. Not that you can't.
 	<p class="next">Common myths:</p>
 	<ul>
 	<li><i>LOL, shellscripts are old-school</i></li>
+	<li><i>Leads to bugs</i></li>
 	<li><i>I'm not writing them</i></li>
 	</ul>
 </section>
 
 <section>
-	<ul>
-	<li><i>LOL, shellscripts are old-school</i></li>
-	<li><i>I'm not writing them</i></li>
-	</ul>
-	<hr/>
-	<ol>
-	<li class="next">Define shellscript programming</li>
-	<li class="next">Where you find them</li>
-	<li class="next">How <i>not</i> to write one</li>
-	</ol>
-</section>
-
-<section>
-	<header><center>What signifies a shellscript language?</center></header>
+	<p>What <i>is</i> shellscripting anyway?</p>
 	<code>&gt; 1+1
 1+1: Command not found.
 &gt; calc '1+1'
 2</code>
-	<p>Programs as building blocks<p>
+	<p class="next">Programs as building blocks<p>
+	<p class="next">Shellscripting is a paradigm!</p>
+	<footer><i>“Old school”</i></footer>
 </section>
 
 <section>
-	<header><center>What defines a shellscript language?</center></header>
-	<code>&gt; 1+1
-1+1: Command not found.
-&gt; calc '1+1'
-2</code>
-	<p>A language for running other programs.<p>
-</section>
-
-<section>
-	<header><center>Where shellscripts are found</center></header>
-	<p>The okay:</p>
+	<p>Where shellscripts are found [1/2]</p>
 	<ul>
 	<li>Personal automation</li>
 	<li>Your typical test script</li>
@@ -79,18 +59,17 @@ The default files are not supposed to be edited. Not that you can't.
 	<li>Every script that runs over ssh</li>
 	</ul>
 	<ul>
+	<footer><i>“I'm not writing them”</i>      </footer>
 </section>
 
 <section>
-	<header><center>Where shellscripts are found</center></header>
-	<p>The bad:</p>
-	<li>Hidden in other programs</li>
+	<p>Where shellscripts are found [2/2]</p>
 	<ul>
 	<li>C/C++: <tt>system("")</tt></li>
 	<li>Python: <tt>subprocess.call("", shell=True)</tt></li>
 	</ul>
-	<p class="next">The ugly:</p>
-	<li class="next">Generating a shellscript at runtime (often with improper quoting)</li>
+	<p class="next">So far, OK!</p>
+	<p class="next">What about:</p>
 	<ul class="next">
 	<li>C++: <tt>std::string cmd("./script.py ") + filename; system(cmd);</tt></li>
 	<li>Python: <tt>subprocess.call("./script.py " + filename, shell=True)</tt></li>
@@ -98,44 +77,44 @@ The default files are not supposed to be edited. Not that you can't.
 </section>
 
 <section>
-	<header><center>How to not generate shellscripts at runtime</center></header>
-	<p>Two insights:</p>
+	<p>How <i>not</i> to generate shellscripts at runtime, often with improper quoting?</p>
 	<ul>
 	<li>A command is fundamentally an array (<tt>argv</tt>)</li>
-	<li>The set of environment variables is also an array.</li>
+	<li>Environment variables too.</li>
 	</ul>
 	<p class="next">→ The command <i>line</i> is an illusion.</p>
 	<p class="next">→ If you are doing string processing, you are doing it wrong.</p>
 </section>
 
 <section>
-	<header><center>How to not do this?</center></header>
-	<p>Generating a shellscript at runtime (with improper quoting)</p>
-	<code>cmd = "LANG=C.UTF-8 ./script.py " + filename
-subprocess.call(cmd, shell=True)</code>
-	<hr>
-	<p class="next">Not invoking the shell</p>
-	<code class="next">cmd = ["./script.py", filename]
-env = {"LANG": "C.UTF-8"}
-subprocess.call(cmd, env=env)</code>
+	<p>From this:</p>
+	<code>auto cmd = std::string("LANG=C.UTF-8 ./script.py ") + filename;
+system(cmd);</code>
+	<footer>How <i>not</i> to write a shellscript</footer>
 </section>
 
 <section>
-	<header><center>How to not do this?</center></header>
-	<code>auto cmd = std::string("LANG=C.UTF-8 ./script.py ") + filename;
-system(cmd);</code>
-	<hr>
-	<code class="next">const char* cmd[] = {
+	<p>To this:</p>
+	<code>const char* cmd[] = {
     "./script.py",
     filename,
-    nullptr
+    NULL
 };
 const char* env[] = {
     "LANG=C.UTF-8",
-    nullptr
+    NULL
 };
 posix_spawn(…, cmd[0], …, …, cmd, env)</code>
+	<footer>How <i>not</i> to write a shellscript</footer>
 </section>
+
+<section>
+	<p class="next">#1 bug antidote →</p>
+	<footer><i>“Leads to bugs”</i></footer>
+</section>
+
+
+
 
 <section>
 	<p>The driver's license of Bash scripting:</p>
@@ -157,14 +136,7 @@ posix_spawn(…, cmd[0], …, …, cmd, env)</code>
 
 <section>
 	<h1>Why quote?</h1>
-	<pre>$var</pre>
-	<pre>$(cmd)</pre>
-	<pre>`cmd`</pre>
-</section>
-
-<section>
-	<h1>Why quote?</h1>
-	<p class="evil">🔥 Evil implicit behavior 🔥</p>
+	<p class="evil next">🔥 Evil implicit behavior 🔥</p>
 	<ol>
 	<li>Word splitting</li>
 	<li>Filename expansion</li>
@@ -172,19 +144,19 @@ posix_spawn(…, cmd[0], …, …, cmd, env)</code>
 </section>
 
 <section>
-	<h2>Warm-up</h2>
-	<p>Word splitting</p>
-	<code>file="La Bouche/Be my lover.mp3"
+	<p>What happens here?</p>
+	<code>file="Aqua - Doctor Jones.mp3"
 rm $file</code>
-	<code class="next">→ <span class="bg">rm</span> <span class="bg">La</span> <span class="bg">Bouche/Be</span> <span class="bg">my</span> <span class="bg">lover.mp3</span></code>
+	<code class="next">→ <span class="bg">rm</span> <span class="bg">Aqua</span> <span class="bg">-</span> <span class="bg">Doctor</span> <span class="bg">Jones.mp3</span></code>
+	<footer>Word splitting</footer>
 </section>
 
 <section>
-	<h2>Warm-up</h2>
-	<p>Filename expansion</p>
+	<p>What happens here?</p>
 	<code>dir="Sagittarius_A*"
 rm -rf $dir</code>
 	<code class="next">→ <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">Sagittarius_AB</span> <span class="bg">Sagittarius_And_Other_Dwarf_Galaxies</span> <span class="bg">Sagittarius_A*</span></code>
+	<footer>Filename expansion</footer>
 </section>
 
 <section>
@@ -192,9 +164,9 @@ rm -rf $dir</code>
 	<code>file="; rm -rf /"
 cat $file</code>
 	<code class="next">→ <span class="bg">cat</span> <span class="bg">;</span> <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">/</span></code>
-	<p class="next">Just word splitting &amp; filename expansion. Bash is not a macro language.</p>
+	<p class="next"><i>Not</i> a crazy macro language.</p>
+	<footer>Just word splitting &amp; filename expansion</footer>
 </section>
-
 
 
 
@@ -375,35 +347,6 @@ echo "${10}"</code>
 einstein foot
 </code>
 	<code class="next">→ <span class="bg">football</span>
-→ </code>
-</section>
-
-<section>
-	<h2>Quiz</h2>
-	<p>Where does the variable name end?</p>
-	<code>{
-    toffi=cof
-    toffifee=airline
-    toffifee_fee=Bryan
-    toffifee_fee-fee=Air
-} 2>/dev/null
-
-echo "$toffifee_fee-fee"
-echo "$toffi""fee_fee-fee"</code>
-</section>
-
-<section>
-	<code>{
-    <b>toffi</b>=cof
-    toffifee=airline
-    <b>toffifee_fee</b>=Bryan
-    toffifee_fee-fee=Air
-} 2>/dev/null
-
-echo "<b>$toffifee_fee</b>-fee"
-echo "<b>$toffi</b>""fee_fee-fee"</code>
-	<code class="next">→ <span class="bg">Bryan-fee</span>
-→ <span class="bg">coffee_fee-fee</span>
 → </code>
 </section>
 
