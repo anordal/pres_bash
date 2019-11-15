@@ -64,7 +64,7 @@ The default files are not supposed to be edited. Not that you can't.
 </section>
 
 <section>
-	<h3>Where shellscripts are found</h3>
+	<h3>How <em>not</em> to write a shellscript?</h3>
 	<code>std::system("")</code>
 	<code class="next">std::system("./script " + <red>file</red>);</code>
 	<code class="next">const char* cmd[] = {
@@ -76,7 +76,7 @@ The default files are not supposed to be edited. Not that you can't.
 </section>
 
 <section>
-	<h3>Where shellscripts are found</h3>
+	<h3>How <em>not</em> to write a shellscript?</h3>
 	<ul>
 		<li>A command is fundamentally an array (<tt>argv</tt>)</li>
 		<li class="next">→ The command <i>line</i> is an illusion.</li>
@@ -93,18 +93,18 @@ The default files are not supposed to be edited. Not that you can't.
 
 
 <section>
-	<p>The driver's license of Bash scripting:</p>
+	<h3>The driver's license of Bash scripting</h3>
 	<h1><b>"</b>Quoting<b>"</b></h1>
 </section>
 
 <section>
-	<p>Must be quoted [1/2]:</p>
+	<h3>Must be quoted</h3>
 	<h1><b>"</b>$var<b>"</b></h1>
 	<footer>Variable expansion</footer>
 </section>
 
 <section>
-	<p>Must be quoted [2/2]:</p>
+	<h3>Must be quoted</h3>
 	<h1><b>"</b>$(cmd)<b>"</b></h1>
 	<h1 class="next"><b>"</b>`cmd`<b>"</b></h1>
 	<footer>Command substitution</footer>
@@ -145,8 +145,9 @@ cat $file</code>
 </section>
 
 <section>
-	<p>That's it! The driver's license to Bash.</p>
-	<p>How to drive safely?</p>
+	<h3>The driver's license of Bash scripting</h3>
+	<p>That's it!</p>
+	<p>How to make it practical?</p>
 	<h1>Demo</h1>
 	<footer>shellcheck &amp; shellharden</footer>
 </section>
