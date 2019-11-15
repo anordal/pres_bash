@@ -174,15 +174,15 @@ done</code>
 	<h2>Use what Bash provides!</h2>
 	<h3>Input and output</h3>
 	<ul>
-		<li class="next"><inline-code>&></inline-code>: Redirect stdout and stderr at once
+		<li class="next"><tt>&></tt>: Redirect stdout and stderr at once
 	</ul>
 	<br>
 	<ul>
-		<li class="next"><inline-code><<-'EOF'</inline-code>: Redirect stdin to yield
-			the upcoming lines, until <inline-code>EOF</inline-code>
+		<li class="next"><tt><<-'EOF'</tt>: Redirect stdin to yield
+			the upcoming lines, until <tt>EOF</tt>
 		<ul>
-			<li class="next">... ignoring leading tabs (<inline-code>-</inline-code>)
-			<li class="next">... literally (<inline-code>''</inline-code>)
+			<li class="next">... ignoring leading tabs (<tt>-</tt>)
+			<li class="next">... literally (<tt>''</tt>)
 		</ul>
 	</ul>
 </section>
@@ -191,13 +191,13 @@ done</code>
 	<h2>Use what Bash provides!</h2>
 	<h3>Input and output</h3>
 	<ul>
-		<li class="next"><inline-code><<< asdf</inline-code>: Redirect stdin to yield
-			<inline-code>asdf</inline-code>
+		<li class="next"><tt><<< asdf</tt>: Redirect stdin to yield
+			<tt>asdf</tt>
 	</ul>
 	<br>
 	<ul>
-		<li class="next"><inline-code><(git show)</inline-code>: Usable like a file
-			containing the output of <inline-code>git show</inline-code>
+		<li class="next"><tt><(git show)</tt>: Usable like a file
+			containing the output of <tt>git show</tt>
 	</ul>
 </section>
 
@@ -205,51 +205,51 @@ done</code>
 	<h2>Use what Bash provides!</h2>
 	<h3>Parameter expansion</h3>
 	<ul>
-		<li><inline-code>${s%%/*}</inline-code>: <inline-code>s</inline-code>,
-			without trailing <inline-code>/*</inline-code>
-		<li><inline-code>${s#*/}</inline-code>: <inline-code>s</inline-code>,
-			without shortest leading <inline-code>*/</inline-code>
-		<li><inline-code>${s/a/b}</inline-code>: <inline-code>s</inline-code>,
-			replacing first <inline-code>a</inline-code> with <inline-code>b</inline-code>
-		<li><inline-code>${s//a/b}</inline-code>: <inline-code>s</inline-code>,
-			replacing every <inline-code>a</inline-code> with <inline-code>b</inline-code>
-		<li><inline-code>${!s}</inline-code>: Content of variable named <inline-code>"$s"</inline-code>
+		<li><tt>${s%%/*}</tt>: <tt>s</tt>,
+			without trailing <tt>/*</tt>
+		<li><tt>${s#*/}</tt>: <tt>s</tt>,
+			without shortest leading <tt>*/</tt>
+		<li><tt>${s/a/b}</tt>: <tt>s</tt>,
+			replacing first <tt>a</tt> with <tt>b</tt>
+		<li><tt>${s//a/b}</tt>: <tt>s</tt>,
+			replacing every <tt>a</tt> with <tt>b</tt>
+		<li><tt>${!s}</tt>: Content of variable named <tt>"$s"</tt>
 	</ul>
 </section>
 
 <section>
 	<h2>Use what Bash provides!</h2>
-	<h3><inline-code>shopt -s</inline-code></h3>
+	<h3><tt>shopt -s</tt></h3>
 	<ul>
-		<li><inline-code>dotglob</inline-code>: Include hidden files when globbing
-		<li><inline-code>nullglob</inline-code>: Expand unmatching globs to empty array
-		<li><inline-code>globstar</inline-code>: Expand double-stars (<tt>**</tt>) recursively
-		<li><inline-code>nocasematch</inline-code>: Ignore case
-			(<b>not in</b> <inline-code>test</inline-code>/<inline-code>[</inline-code>!)
+		<li><tt>dotglob</tt>: Include hidden files when globbing
+		<li><tt>nullglob</tt>: Expand unmatching globs to empty array
+		<li><tt>globstar</tt>: Expand double-stars (<tt>**</tt>) recursively
+		<li><tt>nocasematch</tt>: Ignore case
+			(<b>not in</b> <tt>test</tt>/<tt>[</tt>!)
 	</ul>
 </section>
 
 <section>
 	<h2>Use what Bash provides!</h2>
-	<h3><inline-code>set</inline-code></h3>
+	<h3><tt>set</tt></h3>
 	<ul>
-		<li><inline-code>-x</inline-code>: Echo executed commands
-		<li><inline-code>-e</inline-code>: Exit on errors (covered later)
-		<li><inline-code>-u</inline-code>: Treat unset variables as errors (and exit)
-		<li><inline-code>-o pipefail</inline-code>: Pipe fails if <b>any</b> of its commands fail
+		<li><tt>-x</tt>: Echo executed commands
+		<li><tt>-e</tt>: Exit on errors (covered later)
+		<li><tt>-u</tt>: Treat unset variables as errors (and exit)
+		<li><tt>-o pipefail</tt>: Pipe fails if <b>any</b> of its commands fail
 	</ul>
 </section>
 
 <section>
 	<h2>Use what Bash provides!</h2>
-	<h3>Grouping: <inline-code>{ }</inline-code></h3>
+	<h3>Grouping: <tt>{ }</tt></h3>
 	<code>cleanup || { essential_cleanup; exit 1; }</code>
 	<code class="next">{ echo "[configuration]"; make_config; } > file.conf</code>
 </section>
 
 <section>
 	<h2>Use what Bash provides!</h2>
-	<h3>Subshells: <inline-code>( )</inline-code></h3>
+	<h3>Subshells: <tt>( )</tt></h3>
 	<medium>Changes don't affect parent shell</medium>
 	<code class="next">( set -x; cmd lots of parameters )</code>
 	<code class="next">if ( shopt -s nocasematch; [[ "$s" == "yes" ]] )</code>
@@ -257,7 +257,7 @@ done</code>
 
 <section>
 	<h2>Use what Bash provides!</h2>
-	<h3>Extended conditionals: <inline-code>[[ ]]</inline-code></h3>
+	<h3>Extended conditionals: <tt>[[ ]]</tt></h3>
 	<code class="next">shopt -s nocasematch; [[ "a" == "A" ]]</code>
 	<code class="next">[[ "a" > "b" && (-f "file" || ! -f "file") ]]</code>
 	<code class="next">[[ "a" =~ ^a(bc)*$ ]]</code>
@@ -265,7 +265,7 @@ done</code>
 
 <section>
 	<h2>Use what Bash provides!</h2>
-	<h3>Arithmetic conditionals: <inline-code>(( ))</inline-code></h3>
+	<h3>Arithmetic conditionals: <tt>(( ))</tt></h3>
 	<code class="next">(( ! updated ))</code>
 	<code class="next">(( (i += 2 ** $?) && (1 << 1 & 2) ))</code>
 	<code class="next">for (( i = 0; i < n; ++i ))</code>
@@ -319,7 +319,7 @@ echo 'Great success!'</code>
 
 <section>
 	<h2>set -e</h2>
-	<p>One example of the tribulations with <inline-code>set -e</inline-code></p>
+	<p>One example of the tribulations with <tt>set -e</tt></p>
 	<code>f() {
     ( set -e; false; echo "D'oh!" )
 }
@@ -329,7 +329,7 @@ f && false</code>
 <section>
 	<h2>set -e</h2>
 	<small>
-		The <inline-code>&&</inline-code> thwarts <inline-code>set -e</inline-code>,
+		The <tt>&&</tt> thwarts <tt>set -e</tt>,
 		even inside a subshell inside a function!
 	</small>
 	<div class="next">
@@ -386,17 +386,17 @@ einstein foot
 
 <section>
 	<h2>Quiz</h2>
-	<p>How do you rewrite the following, using only one <inline-code>echo</inline-code>:</p>
+	<p>How do you rewrite the following, using only one <tt>echo</tt>:</p>
 	<code>echo "` echo "$(echo 'h\\i')" `"</code>
 	<code class="next">echo 'h\i'  # or echo "h\\i"</code>
 </section>
 
 <section>
 	<h2>Escaping and ` `</h2>
-	<p>Being syntactically surrounded by <inline-code>` `</inline-code>
-		is enough to halve the number of <inline-code>\\</inline-code>s.
+	<p>Being syntactically surrounded by <tt>` `</tt>
+		is enough to halve the number of <tt>\\</tt>s.
 	</p>
-	<p class="next"><inline-code>\n</inline-code> stays <inline-code>\n</inline-code>.
+	<p class="next"><tt>\n</tt> stays <tt>\n</tt>.
 	</p>
 </section>
 
@@ -465,8 +465,8 @@ done
 <section>
 	<h2>Variable visibility</h2>
 	<br>
-	<p><inline-code>max</inline-code> isn't changed, since the whole loop
-		runs in a subshell introduced by <inline-code>|</inline-code>.
+	<p><tt>max</tt> isn't changed, since the whole loop
+		runs in a subshell introduced by <tt>|</tt>.
 	</p>
 </section>
 
