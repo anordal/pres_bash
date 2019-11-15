@@ -19,9 +19,9 @@ The default files are not supposed to be edited. Not that you can't.
 <title>Bash best and worst practices</title>
 
 <section>
-    <h1>Bash</h1>
-    <h2>best and worst practices</h2>
-    <footer>by Philipp Martis and Andreas Nordal</footer>
+	<h1>Bash</h1>
+	<h2>best and worst practices</h2>
+	<footer>by Philipp Martis and Andreas Nordal</footer>
 </section>
 
 <section>
@@ -29,83 +29,59 @@ The default files are not supposed to be edited. Not that you can't.
 	<p class="next">Common myths:</p>
 	<ul>
 	<li><i>LOL, shellscripts are old-school</i></li>
-	<li><i>Leads to bugs</i></li>
 	<li><i>I'm not writing them</i></li>
+	<li><i>Leads to bugs</i></li>
 	</ul>
 </section>
 
 <section>
-	<p>What <i>is</i> shellscripting anyway?</p>
+	<h3>What <i>is</i> shellscripting anyway?</h3>
 	<code>&gt; 1+1
 1+1: Command not found.
 &gt; calc '1+1'
 2</code>
-	<p class="next">Programs as building blocks<p>
-	<p class="next">Shellscripting is a paradigm!</p>
+	<p><ul>
+		<li class="next">Programs as building blocks</li>
+		<li class="next">Shellscripting is a paradigm!</li>
+	</ul></p>
 	<footer><i>“Old school”</i></footer>
 </section>
 
 <section>
-	<p>Where shellscripts are found [1/2]</p>
+	<h3>Where shellscripts are found</h3>
 	<ul>
-	<li>Personal automation</li>
-	<li>Your typical test script</li>
-	<li>Build systems</li>
-	<ul>
-	<li>Makefiles</li>
-	<li>Dockerfiles</li>
-	<li>Openembedded</li>
+		<li>Personal automation</li>
+		<li>Your typical test script</li>
+		<li>Build systems</li>
+		<ul>
+			<li>Makefiles</li>
+			<li>Dockerfiles</li>
+			<li>Openembedded</li>
+		</ul>
+		<li>Every script that runs over <tt>ssh</tt></li>
 	</ul>
-	<li>Every script that runs over ssh</li>
-	</ul>
-	<ul>
-	<footer><i>“I'm not writing them”</i>      </footer>
+	<footer><i>“I'm not writing them”</i></footer>
 </section>
 
 <section>
-	<p>Where shellscripts are found [2/2]</p>
-	<ul>
-	<li>C/C++: <tt>system("")</tt></li>
-	<li>Python: <tt>subprocess.call("", shell=True)</tt></li>
-	</ul>
-	<p class="next">So far, OK!</p>
-	<p class="next">What about:</p>
-	<ul class="next">
-	<li>C++: <tt>std::string cmd("./script.py ") + filename; system(cmd);</tt></li>
-	<li>Python: <tt>subprocess.call("./script.py " + filename, shell=True)</tt></li>
-	</ul>
-</section>
-
-<section>
-	<p>How <i>not</i> to generate shellscripts at runtime, often with improper quoting?</p>
-	<ul>
-	<li>A command is fundamentally an array (<tt>argv</tt>)</li>
-	<li>Environment variables too.</li>
-	</ul>
-	<p class="next">→ The command <i>line</i> is an illusion.</p>
-	<p class="next">→ If you are doing string processing, you are doing it wrong.</p>
-</section>
-
-<section>
-	<p>From this:</p>
-	<code>auto cmd = std::string("LANG=C.UTF-8 ./script.py ") + filename;
-system(cmd);</code>
-	<footer>How <i>not</i> to write a shellscript</footer>
-</section>
-
-<section>
-	<p>To this:</p>
-	<code>const char* cmd[] = {
-    "./script.py",
-    filename,
+	<h3>Where shellscripts are found</h3>
+	<code>std::system("")</code>
+	<code class="next">std::system("./script " + <red>file</red>);</code>
+	<code class="next">const char* cmd[] = {
+    "./script",
+    file,
     NULL
 };
-const char* env[] = {
-    "LANG=C.UTF-8",
-    NULL
-};
-posix_spawn(…, cmd[0], …, …, cmd, env)</code>
-	<footer>How <i>not</i> to write a shellscript</footer>
+<green>posix_spawn</green>(…, cmd[0], …, …, cmd, …)</code>
+</section>
+
+<section>
+	<h3>Where shellscripts are found</h3>
+	<ul>
+		<li>A command is fundamentally an array (<tt>argv</tt>)</li>
+		<li class="next">→ The command <i>line</i> is an illusion.</li>
+		<li class="next">It's always possible without string processing.</li>
+	</ul>
 </section>
 
 <section>
@@ -299,16 +275,14 @@ done</code>
 <section>
 	<h2>Use what Bash provides!</h2>
 	<h3>Switch</h3>
-	<code>for f in {src,include}/**; do
-    case "$f" in
-        *.h|*.cpp)
-            …
-        ;;
-        *)
-            …
-        ;;
-    esac
-done</code>
+	<code>case "$f" in
+    *.h|*.cpp)
+        …
+    ;;
+    *)
+        …
+    ;;
+esac</code>
 </section>
 
 <section>
@@ -334,9 +308,9 @@ echo 'Great success!'</code>
 	<br>
 	<ul>
 		<li>They have <a href=https://wiki.bash-hackers.org/scripting/obsolete>good</a>
-	                      <a href=http://mywiki.wooledge.org/BashFAQ/105>points</a>
+				<a href=http://mywiki.wooledge.org/BashFAQ/105>points</a>
 		<li>There are also good points for it:
-	        <ul>
+		<ul>
 			<li class="next">Less code: more readable and less error-prone
 			<li class="next">Catches most (programming) errors
 		</ul>
@@ -420,14 +394,14 @@ einstein foot
 <section>
 	<h2>Escaping and ` `</h2>
 	<p>Being syntactically surrounded by <inline-code>` `</inline-code>
-	   is enough to halve the number of <inline-code>\\</inline-code>s.
+		is enough to halve the number of <inline-code>\\</inline-code>s.
 	</p>
 	<p class="next"><inline-code>\n</inline-code> stays <inline-code>\n</inline-code>.
 	</p>
 </section>
 
 <section>
-	<h2>Variable shadowing</h2>
+	<h2>Variable scope</h2>
 	<p>Consider</p>
 	<code>greet() {
     name="$1"
@@ -443,7 +417,7 @@ echo "I like the name $s!"
 </section>
 
 <section>
-	<h2>Variable shadowing</h2>
+	<h2>Variable scope</h2>
 	<p>Correct:</p>
 	<code>greet() {
     <green>declare</green> name="$1" <green>s</green>
@@ -459,7 +433,7 @@ echo "I like the name $s!"
 </section>
 
 <section>
-	<h2>Variable shadowing</h2>
+	<h2>Variable scope</h2>
 	<p>Good: 🙂</p>
 	<code>greet() {
     declare name="$1" <green>hello</green>
@@ -492,14 +466,14 @@ done
 	<h2>Variable visibility</h2>
 	<br>
 	<p><inline-code>max</inline-code> isn't changed, since the whole loop
-           runs in a subshell introduced by <inline-code>|</inline-code>.
+		runs in a subshell introduced by <inline-code>|</inline-code>.
 	</p>
 </section>
 
 <section>
 	<h2>Variable visibility</h2>
 	<p>General solution:</p>
-        <code>declare max="" line
+	<code>declare max="" line
 while read -r line; do
     declare val="`parse "$line"`"
     if higher "$val" "$max"; then
@@ -510,9 +484,9 @@ done <green>< <(get_values)</green>
 </section>
 
 <section>
-	<h2>Variable visibility</h2>
+	<h2>Variable contents</h2>
 	<p>Cleaner:</p>
-        <code>print_max() {
+	<code>print_max() {
     declare max="" line
     while read -r line; do
         update_max "$line"
@@ -527,9 +501,9 @@ max="` get_values | print_max `"
 <section>
 	<h2>Variable contents</h2>
 	<p>Arbitrary values: 🙂</p>
-        <code>print_max() {
+	<code>print_max() {
     declare max="" line
-    while read -r line; do
+    while <green>IFS=</green> read -r line; do
         update_max "$line"
     done
     <green>printf '%s\n'</green> "$max"

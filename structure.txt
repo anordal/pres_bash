@@ -11,7 +11,7 @@
 	- Arrays
 
 - Good practices (here is where we can cut a bit):
-	- (short) functions, sensible variable names, consistency
+	- functions (maybe `local -`)
 	- "Use what Bash provides!"
 		- shopt, set
 		- { } for grouping
@@ -22,6 +22,7 @@
 		- [[ ]]
 		- ${var//str/repl} etc.
 		- $' '
+		- ?( ), *( ) etc.
 	- "Use it properly!"
 		- "if" not necessarily needs [ ]
 		- [ -z ... ] -> [ ... != "" ]
