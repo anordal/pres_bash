@@ -65,22 +65,24 @@ The default files are not supposed to be edited. Not that you can't.
 
 <section>
 	<h3>How <em>not</em> to write a shellscript?</h3>
-	<code>std::system("")</code>
-	<code class="next">std::system("./script " + <red>file</red>);</code>
+	<code>std::system("cmd");</code>
+	<code class="next">std::system("cmd " <red>+</red> arg);</code>
 	<code class="next">const char* cmd[] = {
-    "./script",
-    file,
-    NULL
+    "cmd",
+    arg,
+    nullptr
 };
-<green>posix_spawn</green>(…, cmd[0], …, …, cmd, …)</code>
+<green>posix_spawn</green>(…, cmd[0], …, …, cmd, …);</code>
 </section>
 
 <section>
 	<h3>How <em>not</em> to write a shellscript?</h3>
 	<ul>
-		<li>A command is fundamentally an array (<tt>argv</tt>)</li>
-		<li class="next">→ The command <i>line</i> is an illusion.</li>
-		<li class="next">It's always possible without string processing.</li>
+		<li>You don't need the shell to run one command.</li>
+		<ul>
+			<li class="next">Args are an array: Best kept as such</li>
+		</ul>
+		<li class="next">Writing a shellscript at runtime is an unnecessary liability<br/>→ string processing = bad<br/>→ taking arguments = OK</li>
 	</ul>
 </section>
 
@@ -162,9 +164,8 @@ cat $file</code>
 	<h2>Use what Bash provides!</h2>
 	<h3>Arrays</h3>
 	<code>files=(
-    script.py
     "Aqua - Doctor Jones.mp3"
-    *.h
+    **/*.{h,cpp}
 )
 for f in "${files[@]}"; do
     …
