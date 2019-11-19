@@ -49,6 +49,7 @@ The default files are not supposed to be edited. Not that you can't.
 
 <section>
 	<h3>Where shellscripts are found</h3>
+	<br/>
 	<ul>
 		<li>OS glue code</li>
 		<li>Build/test glue code</li>
@@ -71,6 +72,7 @@ The default files are not supposed to be edited. Not that you can't.
 
 <section>
 	<h3>How <em>not</em> to write a shellscript?</h3>
+	<br/>
 	<ul>
 		<li>You don't need the shell to run one command</li>
 		<ul>
@@ -85,7 +87,7 @@ The default files are not supposed to be edited. Not that you can't.
 </section>
 
 <section>
-	<p class="next">#1 bug antidote →</p>
+	<p class="next">First thing to get right →</p>
 	<footer><i>“Leads to bugs”</i></footer>
 </section>
 
@@ -98,13 +100,13 @@ The default files are not supposed to be edited. Not that you can't.
 </section>
 
 <section>
-	<h3>Must be quoted</h3>
+	<h3>Should be quoted</h3>
 	<h1 style="font-weight:normal;"><b>"</b>$var<b>"</b></h1>
 	<footer>Variable expansion</footer>
 </section>
 
 <section>
-	<h3>Must be quoted</h3>
+	<h3>Should be quoted</h3>
 	<h1 style="margin-top:90px;font-weight:normal;"><b>"</b>$(cmd)<b>"</b></h1>
 	<h1 class="next" style="margin-top:10px;font-weight:normal;"><b>"</b>`cmd`<b>"</b></h1>
 	<footer>Command substitution</footer>
@@ -353,7 +355,8 @@ f && false</code>
 
 
 <section>
-	<p>Positional args</p>
+	<h2>Pitfalls</h2>
+	<h3>Positional args</h3>
 	<code>#!/bin/bash
 echo "$1"</code>
 	<code class="next">#!/bin/bash
@@ -363,8 +366,9 @@ echo "${10}"</code>
 </section>
 
 <section>
+	<h3>Positional args</h3>
 	<p>"$<b>{</b>10<b>}</b>" … But why?</p>
-	<p class="next">There are 2 types of variable names:</p>
+	<p class="next">2 types of variable names:</p>
 	<ol>
 	<li class="next">An identifier: <code>[_a-zA-Z][_a-zA-Z0-9]*</code></li>
 	<li class="next">A non-identifier single character: <code>[^_a-zA-Z]</code></li>
@@ -372,17 +376,8 @@ echo "${10}"</code>
 </section>
 
 <section>
-	<h2>Quiz</h2>
-	<p>Where does the variable name end?</p>
-	<code>einstein() { echo "$1ball"; }
-einstein foot
-</code>
-	<code class="next">→ <span class="bg">football</span>
-→ </code>
-</section>
-
-<section>
-	<h2>Escaping and ` `</h2>
+	<h2>Pitfalls</h2>
+	<h3>Backticks, nesting and escaping</h3>
 	<br>
 	<br>
 	<p class="next">Use <red>` `</red> only for simple things, if at all!</p>
@@ -396,16 +391,17 @@ einstein foot
 </section>
 
 <section>
-	<h2>Escaping and ` `</h2>
+	<h2>Pitfalls</h2>
+	<h3>Backticks, nesting and escaping</h3>
 	<p>Being syntactically surrounded by <tt>` `</tt>
-		is enough to halve the number of <tt>\\</tt>s.
+		halves the number of <tt>\\</tt>s.
 	</p>
 	<p class="next"><tt>\n</tt> stays <tt>\n</tt>.
 	</p>
 </section>
 
 <section>
-	<h2>Variable scope</h2>
+	<h3>Variable scope</h3>
 	<p>Consider</p>
 	<code>greet() {
     name="$1"
@@ -421,7 +417,7 @@ echo "I like the name $s!"
 </section>
 
 <section>
-	<h2>Variable scope</h2>
+	<h3>Variable scope</h3>
 	<p>Correct:</p>
 	<code>greet() {
     <green>declare</green> name="$1" <green>s</green>
@@ -437,7 +433,7 @@ echo "I like the name $s!"
 </section>
 
 <section>
-	<h2>Variable scope</h2>
+	<h3>Variable scope</h3>
 	<p>Good: 🙂</p>
 	<code>greet() {
     declare name="$1" <green>hello</green>
@@ -454,7 +450,8 @@ echo "I like the name <green>$name</green>!"
 </section>
 
 <section>
-	<h2>Variable visibility</h2>
+	<h2>Pitfalls</h2>
+	<h3>Variable scope vs subshell</h3>
 	<p>Consider</p>
 	<code>declare max="" line
 get_values | while read -r line; do
@@ -467,7 +464,8 @@ done
 </section>
 
 <section>
-	<h2>Variable visibility</h2>
+	<h2>Pitfalls</h2>
+	<h3>Variable scope vs subshell</h3>
 	<br>
 	<p><tt>max</tt> isn't changed, since the whole loop
 		runs in a subshell introduced by <tt>|</tt>.
@@ -475,7 +473,8 @@ done
 </section>
 
 <section>
-	<h2>Variable visibility</h2>
+	<h2>Pitfalls</h2>
+	<h3>Variable scope vs subshell</h3>
 	<p>General solution:</p>
 	<code>declare max="" line
 while read -r line; do
@@ -488,7 +487,8 @@ done <green>< <(get_values)</green>
 </section>
 
 <section>
-	<h2>Variable contents</h2>
+	<h2>Pitfalls</h2>
+	<h3>Variable scope vs subshell</h3>
 	<p>Cleaner:</p>
 	<code>print_max() {
     declare max="" line
@@ -503,7 +503,7 @@ max="` get_values | print_max `"
 </section>
 
 <section>
-	<h2>Variable contents</h2>
+	<h3>Variable scope vs subshell</h3>
 	<p>Arbitrary values: 🙂</p>
 	<code>print_max() {
     declare max="" line
