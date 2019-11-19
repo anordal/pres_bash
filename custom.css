@@ -48,6 +48,9 @@ pre,code {
   font-size: 1.7rem;
 }
 
+li {
+  margin-top: 8px;
+}
 
 b,red {
   color: red;
@@ -57,10 +60,26 @@ green {
   color: green;
 }
 
+blue {
+  color: blue;
+}
+
+purple {
+  color: purple;
+}
+
+
+.center {
+  text-align: center;
+}
+
 .evil {
   color: orange;
   font-weight: bold;
+  font-size: 2.5rem;
   text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .bg {
@@ -80,6 +99,7 @@ p {
   margin: 25px 75px 0 75px;
   font-size: 3rem;
 }
+
 
 medium {
   /* Use padding instead of margin to prevent collapsing -- for smaller text we want some more space: */

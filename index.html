@@ -25,13 +25,13 @@ The default files are not supposed to be edited. Not that you can't.
 </section>
 
 <section>
-	<h1>Why care</h1>
+	<h1>Why care?</h1>
 	<p class="next">Common myths:</p>
-	<ul>
+	<p><ul>
 	<li><i>LOL, shellscripts are old-school</i></li>
 	<li><i>I'm not writing them</i></li>
 	<li><i>Leads to bugs</i></li>
-	</ul>
+	</ul></p>
 </section>
 
 <section>
@@ -60,7 +60,7 @@ The default files are not supposed to be edited. Not that you can't.
 <section>
 	<h3>How <em>not</em> to write a shellscript?</h3>
 	<code>std::system("cmd");</code>
-	<code class="next">std::system("cmd " <red>+</red> arg);</code>
+	<code class="next">std::system("cmd " <red>+ arg</red>);</code>
 	<code class="next">const char* cmd[] = {
     "cmd",
     arg,
@@ -72,11 +72,15 @@ The default files are not supposed to be edited. Not that you can't.
 <section>
 	<h3>How <em>not</em> to write a shellscript?</h3>
 	<ul>
-		<li>You don't need the shell to run one command.</li>
+		<li>You don't need the shell to run one command</li>
 		<ul>
 			<li class="next">Args are an array: Best kept as such</li>
 		</ul>
-		<li class="next">Writing a shellscript at runtime is an unnecessary liability<br/>→ string processing = bad<br/>→ taking arguments = OK</li>
+		<li class="next">String processing is a liability
+			<ul>
+				<li class="next">Trick: Static script that takes arguments</li>
+			</ul>
+		</li>
 	</ul>
 </section>
 
@@ -95,24 +99,24 @@ The default files are not supposed to be edited. Not that you can't.
 
 <section>
 	<h3>Must be quoted</h3>
-	<h1><b>"</b>$var<b>"</b></h1>
+	<h1 style="font-weight:normal;"><b>"</b>$var<b>"</b></h1>
 	<footer>Variable expansion</footer>
 </section>
 
 <section>
 	<h3>Must be quoted</h3>
-	<h1><b>"</b>$(cmd)<b>"</b></h1>
-	<h1 class="next"><b>"</b>`cmd`<b>"</b></h1>
+	<h1 style="margin-top:90px;font-weight:normal;"><b>"</b>$(cmd)<b>"</b></h1>
+	<h1 class="next" style="margin-top:10px;font-weight:normal;"><b>"</b>`cmd`<b>"</b></h1>
 	<footer>Command substitution</footer>
 </section>
 
 <section>
 	<h1>Why quote?</h1>
-	<p class="evil next">🔥 Evil implicit behavior 🔥</p>
-	<ol>
+	<p class="evil next">🔥 Implicit effects 🔥</p>
+	<p><ul>
 	<li>Word splitting</li>
 	<li>Filename expansion</li>
-	</ol>
+	</ul></p>
 </section>
 
 <section>
@@ -132,7 +136,7 @@ rm -rf $dir</code>
 </section>
 
 <section>
-	<h2>Quiz</h2>
+	<p class="center">Quiz</p>
 	<code>file="; rm -rf /"
 cat $file</code>
 	<code class="next">→ <span class="bg">cat</span> <span class="bg">;</span> <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">/</span></code>
@@ -172,13 +176,13 @@ done</code>
 	<ul>
 		<li class="next"><tt>&></tt>: Redirect stdout and stderr at once
 	</ul>
-	<br>
 	<ul>
-		<li class="next"><tt><<-'EOF'</tt>: Redirect stdin to yield
+		<li class="next"><tt><<<blue>-</blue><purple>'</purple>EOF<purple>'</purple></tt>:
+			Redirect stdin to yield
 			the upcoming lines, until <tt>EOF</tt>
 		<ul>
-			<li class="next">... ignoring leading tabs (<tt>-</tt>)
-			<li class="next">... literally (<tt>''</tt>)
+			<li class="next">... ignoring leading tabs (<blue><tt>-</tt></blue>)
+			<li class="next">... literally (<purple><tt>''</tt></purple>)
 		</ul>
 	</ul>
 </section>
@@ -190,7 +194,6 @@ done</code>
 		<li class="next"><tt><<< asdf</tt>: Redirect stdin to yield
 			<tt>asdf</tt>
 	</ul>
-	<br>
 	<ul>
 		<li class="next"><tt><(git show)</tt>: Usable like a file
 			containing the output of <tt>git show</tt>
@@ -291,11 +294,8 @@ cleanup() {
 }
 trap cleanup EXIT
 
-cd "$tmpdir"
 …
-…
-…
-echo 'Great success!'</code>
+</code>
 </section>
 
 <section>
