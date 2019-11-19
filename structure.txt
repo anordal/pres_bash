@@ -1,18 +1,18 @@
-- Introduction
-	- Content / goal: How to write cleaner and safer shell code
-	- Why care?
-		- Use in Make, Docker, system(), cron, ...
-		- Speedup in everyday tasks
-		- Small programs
-	- Table of contents / structure
+- Why care?
+	- LOL, shellscripts are old-school
+	- I'm not writing them
+	- Leads to bugs
 
-- Drivers' license to Bash
-	- Quotes
-	- Arrays
+- Drivers' license to Bash: Quoting
+	- Must be quoted
+	- Why quote?
+		- Word splitting
+		- Filename expansion
 
 - Good practices (here is where we can cut a bit):
 	- functions (maybe `local -`)
 	- "Use what Bash provides!"
+		- Arrays
 		- shopt, set
 		- { } for grouping
 		- ( ) for throwaway-environments (set, shopt, env, variables)
