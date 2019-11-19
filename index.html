@@ -324,6 +324,14 @@ f && false</code>
 
 <section>
 	<h2>set -e</h2>
+	<p>Another one:</p>
+	<code>declare x="$(exit_on_fail)"</code>
+	<code class="next">declare x; <green>x=</green>"$(exit_on_fail)"</code>
+	<medium><tt>set -e</tt> is just inherited for plain assignments!</medium>
+</section>
+
+<section>
+	<h2>set -e</h2>
 	<small>
 		The <tt>&&</tt> thwarts <tt>set -e</tt>,
 		even inside a subshell inside a function!
