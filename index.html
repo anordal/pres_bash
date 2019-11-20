@@ -61,7 +61,7 @@ The default files are not supposed to be edited. Not that you can't.
 <section>
 	<h3>How <em>not</em> to write a shellscript?</h3>
 	<code>std::system("cmd");</code>
-	<code class="next">std::system("cmd " <red>+ arg</red>);</code>
+	<code class="next">std::system("cmd "s <red>+ arg</red>);</code>
 	<code class="next">const char* cmd[] = {
     "cmd",
     arg,
@@ -139,9 +139,9 @@ rm -rf $dir</code>
 
 <section>
 	<p class="center">Quiz</p>
-	<code>file="; rm -rf /"
+	<code>file="/dev/null; rm -rf /"
 cat $file</code>
-	<code class="next">→ <span class="bg">cat</span> <span class="bg">;</span> <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">/</span></code>
+	<code class="next">→ <span class="bg">cat</span> <span class="bg">/dev/null</span> <span class="bg">;</span> <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">/</span></code>
 	<p class="next"><i>Not</i> a crazy macro language.</p>
 	<footer>Just word splitting &amp; filename expansion</footer>
 </section>
@@ -329,7 +329,7 @@ f && false</code>
 	<p>Another one:</p>
 	<code>declare x="$(exit_on_fail)"</code>
 	<code class="next">declare x; <green>x=</green>"$(exit_on_fail)"</code>
-	<medium><tt>set -e</tt> is just inherited for plain assignments!</medium>
+	<medium class="next"><tt>set -e</tt> is just inherited for plain assignments!</medium>
 </section>
 
 <section>
@@ -360,14 +360,14 @@ f && false</code>
 	<code>#!/bin/bash
 echo "$1"</code>
 	<code class="next">#!/bin/bash
-echo "$10"</code>
+echo "<red>$1</red>0"</code>
 	<code class="next">#!/bin/bash
-echo "${10}"</code>
+echo "$<green>{</green>10<green>}</green>"</code>
 </section>
 
 <section>
 	<h3>Positional args</h3>
-	<p>"$<b>{</b>10<b>}</b>" … But why?</p>
+	<p>"$<b>{</b>10<b>}</b>"… But why?</p>
 	<p class="next">2 types of variable names:</p>
 	<ol>
 	<li class="next">An identifier: <code>[_a-zA-Z][_a-zA-Z0-9]*</code></li>
