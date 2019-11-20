@@ -1,13 +1,13 @@
-- Why care?
-	- LOL, shellscripts are old-school
-	- I'm not writing them
-	- Leads to bugs
-
-- Drivers' license to Bash: Quoting
-	- Must be quoted
-	- Why quote?
-		- Word splitting
-		- Filename expansion
+- Intro
+	- Why care?
+		- LOL, shellscripts are old-school
+		- I'm not writing them
+		- Leads to bugs
+	- Drivers' license to Bash: Quoting
+		- Should be quoted
+		- Why quote?
+			- Word splitting
+			- Filename expansion
 
 - Good practices (here is where we can cut a bit):
 	- functions (maybe `local -`)
@@ -23,12 +23,12 @@
 		- ${var//str/repl} etc.
 		- $' '
 		- ?( ), *( ) etc.
+		- trap just on EXIT
 	- "Use it properly!"
 		- "if" not necessarily needs [ ]
 		- [ -z ... ] -> [ ... != "" ]
 		- useful program options, like grep -q, mkdir -p and rm -f
 	- Use set -e (-uo pipefail) (+ counterexample)
-	- trap just on EXIT
 
 - Pitfalls:
 	- $10

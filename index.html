@@ -98,10 +98,8 @@ The default files are not supposed to be edited. Not that you can't.
 </section>
 
 
-
-
 <section>
-	<h3>The driver's license of Bash scripting</h3>
+	<h2>The driver's license of Bash scripting</h2>
 	<h1><b>"</b>Quoting<b>"</b></h1>
 </section>
 
@@ -153,10 +151,13 @@ cat $file</code>
 </section>
 
 <section>
-	<h3>The driver's license of Bash scripting</h3>
-	<p>That's it!</p>
+	<h1>That's it!</h1>
+	<footer>The driver's license of Bash scripting</footer>
+</section>
+
+<section>
 	<p>How to make it practical?</p>
-	<h1>Demo</h1>
+	<h1 class="next">(Demo)</h1>
 	<footer>shellcheck &amp; shellharden</footer>
 </section>
 
@@ -166,6 +167,7 @@ cat $file</code>
 <section>
 	<h1>Good practices</h1>
 </section>
+
 
 <section>
 	<h2>Use what Bash provides!</h2>
@@ -307,6 +309,7 @@ trap cleanup EXIT
 </code>
 </section>
 
+
 <section>
 	<h2>set -e</h2>
 	<p>Some object fiercly to it</p>
@@ -355,15 +358,13 @@ f && false</code>
 
 
 
-
 <section>
 	<h1>Pitfalls</h1>
 </section>
 
 
 <section>
-	<h2>Pitfalls</h2>
-	<h3>Positional args</h3>
+	<h2>Positional args</h2>
 	<code>#!/bin/bash
 echo "$1"</code>
 	<code class="next">#!/bin/bash
@@ -373,42 +374,36 @@ echo "$<green>{</green>10<green>}</green>"</code>
 </section>
 
 <section>
-	<h3>Positional args</h3>
+	<h2>Positional args</h2>
 	<p>"$<b>{</b>10<b>}</b>"… But why?</p>
-	<p class="next">2 types of variable names:</p>
-	<ol>
+	<p class="next" style="margin-top:30px;">2 types of variable names:</p>
+	<ol style="margin-top:20px;">
 	<li class="next">An identifier: <code>[_a-zA-Z][_a-zA-Z0-9]*</code></li>
 	<li class="next">A non-identifier single character: <code>[^_a-zA-Z]</code></li>
 	</ol>
 </section>
 
 <section>
-	<h2>Pitfalls</h2>
-	<h3>Backticks, nesting and escaping</h3>
+	<h2>Backticks and escaping</h2>
 	<br>
 	<br>
 	<p class="next">Use <red>` `</red> only for simple things, if at all!</p>
 </section>
 
 <section>
-	<h2>Quiz</h2>
-	<p>How do you rewrite the following, using only one <tt>echo</tt>:</p>
+	<p class="center">Quiz</p>
+	<medium>How do you rewrite the following, using only one <tt>echo</tt>:</medium>
 	<code>echo "` echo "$(echo 'h\\i')" `"</code>
 	<code class="next">echo 'h\i'  # or echo "h\\i"</code>
+	<medium class="next">Syntactically surrounding <tt>` `</tt>s
+		halve the number of <tt>\\</tt>s.<br/>
+		(<tt>\n</tt> stays <tt>\n</tt>.)
+	</medium>
 </section>
 
-<section>
-	<h2>Pitfalls</h2>
-	<h3>Backticks, nesting and escaping</h3>
-	<p>Being syntactically surrounded by <tt>` `</tt>
-		halves the number of <tt>\\</tt>s.
-	</p>
-	<p class="next"><tt>\n</tt> stays <tt>\n</tt>.
-	</p>
-</section>
 
 <section>
-	<h3>Variable scope</h3>
+	<h2>Variable scope</h2>
 	<p>Consider</p>
 	<code>greet() {
     name="$1"
@@ -424,7 +419,7 @@ echo "I like the name $s!"
 </section>
 
 <section>
-	<h3>Variable scope</h3>
+	<h2>Variable scope</h2>
 	<p>Correct:</p>
 	<code>greet() {
     <green>declare</green> name="$1" <green>s</green>
@@ -440,7 +435,7 @@ echo "I like the name $s!"
 </section>
 
 <section>
-	<h3>Variable scope</h3>
+	<h2>Variable scope</h2>
 	<p>Good: 🙂</p>
 	<code>greet() {
     declare name="$1" <green>hello</green>
@@ -457,8 +452,7 @@ echo "I like the name <green>$name</green>!"
 </section>
 
 <section>
-	<h2>Pitfalls</h2>
-	<h3>Variable scope vs subshell</h3>
+	<h2>Variable visibility</h2>
 	<p>Consider</p>
 	<code>declare max="" line
 get_values | while read -r line; do
@@ -468,20 +462,13 @@ get_values | while read -r line; do
     fi
 done
 </code>
+<medium class="next"><tt>max</tt> isn't changed, since the whole loop
+	runs in a subshell introduced by <tt>|</tt>.
+</medium>
 </section>
 
 <section>
-	<h2>Pitfalls</h2>
-	<h3>Variable scope vs subshell</h3>
-	<br>
-	<p><tt>max</tt> isn't changed, since the whole loop
-		runs in a subshell introduced by <tt>|</tt>.
-	</p>
-</section>
-
-<section>
-	<h2>Pitfalls</h2>
-	<h3>Variable scope vs subshell</h3>
+	<h2>Variable visibility</h2>
 	<p>General solution:</p>
 	<code>declare max="" line
 while read -r line; do
@@ -494,8 +481,7 @@ done <green>< <(get_values)</green>
 </section>
 
 <section>
-	<h2>Pitfalls</h2>
-	<h3>Variable scope vs subshell</h3>
+	<h2>Variable contents</h2>
 	<p>Cleaner:</p>
 	<code>print_max() {
     declare max="" line
@@ -510,7 +496,7 @@ max="` get_values | print_max `"
 </section>
 
 <section>
-	<h3>Variable scope vs subshell</h3>
+	<h2>Variable contents</h2>
 	<p>Arbitrary values: 🙂</p>
 	<code>print_max() {
     declare max="" line
