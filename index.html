@@ -39,6 +39,7 @@ The default files are not supposed to be edited. Not that you can't.
 		</ul>
 		<li>Good practices
 		<ul>
+			<li>Use functions!
 			<li>Use what Bash provides!
 			<li>set -e
 		</ul>
@@ -195,6 +196,33 @@ cat $file</code>
 	<h1>Good practices</h1>
 </section>
 
+
+<section>
+	<h2>Use functions!</h2>
+	<code>get_config_file() {
+    if …; then
+        echo /etc/theconfig
+    else
+        echo ~/.theconfig
+    fi
+}</code>
+</section>
+
+<section>
+	<h2>Use functions!</h2>
+	<code>get_config_files() {
+    local -; set -e
+
+    declare config=( /etc/theconfig )
+    config+=( ~/.theconfig )
+
+    declare -p config
+}
+
+use_config() {
+    eval "$(get_config_files)"
+}</code>
+</section>
 
 <section>
 	<h2>Use what Bash provides!</h2>
