@@ -18,11 +18,17 @@ The default files are not supposed to be edited. Not that you can't.
 
 <title>Bash best and worst practices</title>
 
+
+
+
 <section>
 	<h1>Bash</h1>
 	<h2>best and worst practices</h2>
 	<footer>by Philipp Martis and Andreas Nordal</footer>
 </section>
+
+
+
 
 <section>
 	<h1>Why care?</h1>
@@ -153,6 +159,7 @@ cat $file</code>
 	<h1>Demo</h1>
 	<footer>shellcheck &amp; shellharden</footer>
 </section>
+
 
 
 
@@ -326,14 +333,6 @@ f && false</code>
 
 <section>
 	<h2>set -e</h2>
-	<p>Another one:</p>
-	<code>declare x="$(exit_on_fail)"</code>
-	<code class="next">declare x; <green>x=</green>"$(exit_on_fail)"</code>
-	<medium class="next"><tt>set -e</tt> is just inherited for plain assignments!</medium>
-</section>
-
-<section>
-	<h2>set -e</h2>
 	<small>
 		The <tt>&&</tt> thwarts <tt>set -e</tt>,
 		even inside a subshell inside a function!
@@ -343,6 +342,14 @@ f && false</code>
 		<p>Solution:</p>
 		<code>f <green>& wait $!</green> && false</code>
 	</div>
+</section>
+
+<section>
+	<h2>set -e</h2>
+	<p>Another one:</p>
+	<code>declare x="$(exit_on_fail)"</code>
+	<code class="next">declare x; <green>x=</green>"$(exit_on_fail)"</code>
+	<medium class="next"><tt>set -e</tt> is just inherited for plain assignments!</medium>
 </section>
 
 
