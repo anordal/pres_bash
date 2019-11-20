@@ -128,7 +128,7 @@ The default files are not supposed to be edited. Not that you can't.
 <section>
 	<p>What happens here?</p>
 	<code>file="Aqua - Doctor Jones.mp3"
-rm $file</code>
+rm -- $file</code>
 	<code class="next">→ <span class="bg">rm</span> <span class="bg">Aqua</span> <span class="bg">-</span> <span class="bg">Doctor</span> <span class="bg">Jones.mp3</span></code>
 	<footer>Word splitting</footer>
 </section>
@@ -136,7 +136,7 @@ rm $file</code>
 <section>
 	<p>What happens here?</p>
 	<code>dir="Sagittarius_A*"
-rm -rf $dir</code>
+rm -rf -- $dir</code>
 	<code class="next">→ <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">Sagittarius_AB</span> <span class="bg">Sagittarius_And_Other_Dwarf_Galaxies</span> <span class="bg">Sagittarius_A*</span></code>
 	<footer>Filename expansion</footer>
 </section>
@@ -176,9 +176,12 @@ cat $file</code>
     "Aqua - Doctor Jones.mp3"
     **/*.{h,cpp}
 )
+
 for f in "${files[@]}"; do
     …
-done</code>
+done
+
+rm -- "${files[@]}"</code>
 </section>
 
 <section>
@@ -197,9 +200,9 @@ done</code>
 	<h2>Use what Bash provides!</h2>
 	<h3>Switch</h3>
 	<code>case "$f" in
-    *.h|*.cpp)
+    *.h|*.cpp)  # nocasematch applies
         …
-    ;;
+    ;&
     *)
         …
     ;;
@@ -301,7 +304,7 @@ esac</code>
 	<code>set -e
 tmpdir="$(mktemp -d)"
 cleanup() {
-    rm -rf "$tmpdir"
+    rm -rf -- "$tmpdir"
 }
 trap cleanup EXIT
 
