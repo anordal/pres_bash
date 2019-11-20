@@ -183,6 +183,90 @@ done</code>
 
 <section>
 	<h2>Use what Bash provides!</h2>
+	<h3><tt>shopt -s</tt></h3>
+	<ul>
+		<li><tt>dotglob</tt>: Include hidden files when globbing
+		<li><tt>nullglob</tt>: Expand unmatching globs to empty array
+		<li><tt>globstar</tt>: Expand double-stars (<tt>**</tt>) recursively
+		<li><tt>nocasematch</tt>: Ignore case
+			(<b>not in</b> <tt>test</tt>/<tt>[</tt>!)
+	</ul>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Switch</h3>
+	<code>case "$f" in
+    *.h|*.cpp)
+        …
+    ;;
+    *)
+        …
+    ;;
+esac</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3><tt>set</tt></h3>
+	<ul>
+		<li><tt>-x</tt>: Echo executed commands
+		<li><tt>-e</tt>: Exit on errors (covered later)
+		<li><tt>-u</tt>: Treat unset variables as errors (and exit)
+		<li><tt>-o pipefail</tt>: Pipe fails if <b>any</b> of its commands fail
+	</ul>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Subshells: <tt>( )</tt></h3>
+	<medium>Changes don't affect parent shell</medium>
+	<code class="next">( set -x; cmd lots of parameters )</code>
+	<code class="next">if ( shopt -s nocasematch; [[ "$s" == "yes" ]] )</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Grouping: <tt>{ }</tt></h3>
+	<code>cleanup || { essential_cleanup; exit 1; }</code>
+	<code class="next">{ echo "[configuration]"; make_config; } > file.conf</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Arithmetic conditionals: <tt>(( ))</tt></h3>
+	<code class="next">(( ! updated ))</code>
+	<code class="next">(( (i += 2 ** $?) && (1 << 1 & 2) ))</code>
+	<code class="next">for (( i = 0; i < n; ++i ))</code>
+	<medium class="next">Be aware of recursive and history expansion!</medium>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Extended conditionals: <tt>[[ ]]</tt></h3>
+	<code class="next">shopt -s nocasematch; [[ "a" == "A" ]]</code>
+	<code class="next">[[ "a" > "b" && (-f "file" || ! -f "file") ]]</code>
+	<code class="next">[[ "a" =~ ^a(bc)*$ ]]</code>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
+	<h3>Parameter expansion</h3>
+	<ul>
+		<li><tt>${s%%/*}</tt>: <tt>s</tt>,
+			without trailing <tt>/*</tt>
+		<li><tt>${s#*/}</tt>: <tt>s</tt>,
+			without shortest leading <tt>*/</tt>
+		<li><tt>${s/a/b}</tt>: <tt>s</tt>,
+			replacing first <tt>a</tt> with <tt>b</tt>
+		<li><tt>${s//a/b}</tt>: <tt>s</tt>,
+			replacing every <tt>a</tt> with <tt>b</tt>
+		<li><tt>${!s}</tt>: Content of variable named <tt>"$s"</tt>
+	</ul>
+</section>
+
+<section>
+	<h2>Use what Bash provides!</h2>
 	<h3>Input and output</h3>
 	<ul>
 		<li class="next"><tt>&></tt>: Redirect stdout and stderr at once
@@ -209,90 +293,6 @@ done</code>
 		<li class="next"><tt><(git show)</tt>: Usable like a file
 			containing the output of <tt>git show</tt>
 	</ul>
-</section>
-
-<section>
-	<h2>Use what Bash provides!</h2>
-	<h3>Parameter expansion</h3>
-	<ul>
-		<li><tt>${s%%/*}</tt>: <tt>s</tt>,
-			without trailing <tt>/*</tt>
-		<li><tt>${s#*/}</tt>: <tt>s</tt>,
-			without shortest leading <tt>*/</tt>
-		<li><tt>${s/a/b}</tt>: <tt>s</tt>,
-			replacing first <tt>a</tt> with <tt>b</tt>
-		<li><tt>${s//a/b}</tt>: <tt>s</tt>,
-			replacing every <tt>a</tt> with <tt>b</tt>
-		<li><tt>${!s}</tt>: Content of variable named <tt>"$s"</tt>
-	</ul>
-</section>
-
-<section>
-	<h2>Use what Bash provides!</h2>
-	<h3><tt>shopt -s</tt></h3>
-	<ul>
-		<li><tt>dotglob</tt>: Include hidden files when globbing
-		<li><tt>nullglob</tt>: Expand unmatching globs to empty array
-		<li><tt>globstar</tt>: Expand double-stars (<tt>**</tt>) recursively
-		<li><tt>nocasematch</tt>: Ignore case
-			(<b>not in</b> <tt>test</tt>/<tt>[</tt>!)
-	</ul>
-</section>
-
-<section>
-	<h2>Use what Bash provides!</h2>
-	<h3><tt>set</tt></h3>
-	<ul>
-		<li><tt>-x</tt>: Echo executed commands
-		<li><tt>-e</tt>: Exit on errors (covered later)
-		<li><tt>-u</tt>: Treat unset variables as errors (and exit)
-		<li><tt>-o pipefail</tt>: Pipe fails if <b>any</b> of its commands fail
-	</ul>
-</section>
-
-<section>
-	<h2>Use what Bash provides!</h2>
-	<h3>Grouping: <tt>{ }</tt></h3>
-	<code>cleanup || { essential_cleanup; exit 1; }</code>
-	<code class="next">{ echo "[configuration]"; make_config; } > file.conf</code>
-</section>
-
-<section>
-	<h2>Use what Bash provides!</h2>
-	<h3>Subshells: <tt>( )</tt></h3>
-	<medium>Changes don't affect parent shell</medium>
-	<code class="next">( set -x; cmd lots of parameters )</code>
-	<code class="next">if ( shopt -s nocasematch; [[ "$s" == "yes" ]] )</code>
-</section>
-
-<section>
-	<h2>Use what Bash provides!</h2>
-	<h3>Extended conditionals: <tt>[[ ]]</tt></h3>
-	<code class="next">shopt -s nocasematch; [[ "a" == "A" ]]</code>
-	<code class="next">[[ "a" > "b" && (-f "file" || ! -f "file") ]]</code>
-	<code class="next">[[ "a" =~ ^a(bc)*$ ]]</code>
-</section>
-
-<section>
-	<h2>Use what Bash provides!</h2>
-	<h3>Arithmetic conditionals: <tt>(( ))</tt></h3>
-	<code class="next">(( ! updated ))</code>
-	<code class="next">(( (i += 2 ** $?) && (1 << 1 & 2) ))</code>
-	<code class="next">for (( i = 0; i < n; ++i ))</code>
-	<medium class="next">Be aware of recursive and history expansion!</medium>
-</section>
-
-<section>
-	<h2>Use what Bash provides!</h2>
-	<h3>Switch</h3>
-	<code>case "$f" in
-    *.h|*.cpp)
-        …
-    ;;
-    *)
-        …
-    ;;
-esac</code>
 </section>
 
 <section>
