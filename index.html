@@ -211,12 +211,12 @@ cat $file</code>
 <section>
 	<h2>Use functions!</h2>
 	<code>get_config() {
-    local -; set -e
+    local -; set -e  # local set -e
 
     declare config=( /etc/theconfig )
-    config+=( ~/.theconfig )
+    … && config+=( ~/.theconfig )
 
-    declare -p config
+    declare -p config  # return array
 }
 
 use_config() {
