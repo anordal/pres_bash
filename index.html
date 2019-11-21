@@ -157,7 +157,7 @@ The default files are not supposed to be edited. Not that you can't.
 	<p>What happens here?</p>
 	<code>file="Aqua - Doctor Jones.mp3"
 rm -- $file</code>
-	<code class="next">→ <span class="bg">rm</span> <span class="bg">Aqua</span> <span class="bg">-</span> <span class="bg">Doctor</span> <span class="bg">Jones.mp3</span></code>
+	<code class="next">→ <span class="bg">rm</span> <span class="bg">--</span> <span class="bg">Aqua</span> <span class="bg">-</span> <span class="bg">Doctor</span> <span class="bg">Jones.mp3</span></code>
 	<footer>Word splitting</footer>
 </section>
 
@@ -165,7 +165,7 @@ rm -- $file</code>
 	<p>What happens here?</p>
 	<code>dir="Sagittarius_A*"
 rm -rf -- $dir</code>
-	<code class="next">→ <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">Sagittarius_AB</span> <span class="bg">Sagittarius_And_Other_Dwarf_Galaxies</span> <span class="bg">Sagittarius_A*</span></code>
+	<code class="next">→ <span class="bg">rm</span> <span class="bg">-rf</span> <span class="bg">--</span> <span class="bg">Sagittarius_AB</span> <span class="bg">Sagittarius_And_Other_Dwarf_Galaxies</span> <span class="bg">Sagittarius_A*</span></code>
 	<footer>Filename expansion</footer>
 </section>
 
@@ -210,7 +210,7 @@ cat $file</code>
 
 <section>
 	<h2>Use functions!</h2>
-	<code>get_config_files() {
+	<code>get_config() {
     local -; set -e
 
     declare config=( /etc/theconfig )
@@ -220,7 +220,8 @@ cat $file</code>
 }
 
 use_config() {
-    eval "$(get_config_files)"
+    eval "$(get_config)"
+    …
 }</code>
 </section>
 
